@@ -1,0 +1,26 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type FileDto {
+  _id: String!
+  filename: String!
+  src: String!
+  thumbnail: String!
+  type: String!
+}
+
+input FileInputDto {
+  filename: String!
+  src: String!
+  thumbnail: String!
+  type: String!
+}
+
+type Mutation {
+  addFile(addFileData: FileInputDto!): FileDto!
+}
+
+type Query {
+  files: [FileDto!]!
+}
