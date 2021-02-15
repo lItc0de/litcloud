@@ -1,0 +1,9 @@
+query getFiles {
+  files {
+    _id
+    filename
+    src
+    thumbnail
+    type
+  }
+}

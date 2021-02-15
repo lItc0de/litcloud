@@ -6,17 +6,16 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-
-@Options({
+export default {
   props: {
-    fileId: String,
-    fileName: String,
+    fileId: {
+      type: String,
+      required: true,
+    },
+    fileName: {
+      type: String,
+      required: true,
+    },
   },
-})
-export default class File extends Vue {
-  fileId!: string;
-
-  fileName!: string;
-}
+};
 </script>

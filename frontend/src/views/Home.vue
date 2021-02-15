@@ -1,33 +1,36 @@
 <template>
   <div class="home">
-    <File
-      v-for="{ fileId, fileName } in files"
-      :fileId="fileId"
-      :fileName="fileName"
-      :key="fileId"
-    />
+    <DragArea>
+      <File
+        v-for="{ _id, filename } in files"
+        :fileId="_id"
+        :fileName="filename"
+        :key="_id"
+      />
+    </DragArea>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import File from '@/components/File.vue';
+import { useQuery, useResult } from '@vue/apollo-composable';
+import getFiles from '@/graphql/getFiles.gql';
+import { GetFilesDto } from '@/graphql/@types/getFiles.d';
 
-@Options({
+import File from '@/components/File.vue';
+import DragArea from '@/components/DragArea.vue';
+
+export default {
   components: {
     File,
+    DragArea,
   },
-})
-export default class Home extends Vue {
-  files: File[] = [
-    {
-      fileName: 'lol',
-      fileId: '1',
-    } as File,
-    {
-      fileName: 'lala',
-      fileId: '2',
-    } as File,
-  ];
-}
+
+  setup() {
+    const { result } = useQuery<GetFilesDto>(getFiles);
+
+    const files = useResult(result, [], (data) => data.files);
+
+    return { files };
+  },
+};
 </script>
